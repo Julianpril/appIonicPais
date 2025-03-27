@@ -1,20 +1,28 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+<ion-header>
     <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+      <ion-title>Lista de Países</ion-title>
     </ion-toolbar>
   </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
-</ion-content>
+  
+  <ion-content class="ion-padding">
+    <ion-item>
+      <ion-input
+        [ngModel]="searchQuery()"
+        (ngModelChange)="searchQuery.set($event)"
+        placeholder="Buscar países (mínimo 3 caracteres)"
+        (ionChange)="onSearchChange()"
+      ></ion-input>
+      <ion-button fill="outline" (click)="restore()">Restaurar</ion-button>
+    </ion-item>
+  
+    <ion-list>
+      <ion-item
+        *ngFor="let country of filteredCountries()"
+        (click)="openDetail(country)"
+        button
+      >
+        {{ country.name.common }}
+      </ion-item>
+    </ion-list>
+  </ion-content>
+  

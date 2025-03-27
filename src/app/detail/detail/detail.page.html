@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ country?.name?.common }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card [hidden]="!country">
+    <ion-card-header>
+      <ion-card-title>{{ country?.name?.common }}</ion-card-title>
+      <ion-card-subtitle>{{ country?.name?.official }}</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-item>
+        <strong>Capital:</strong>
+        <span>{{ country?.capital?.[0] ?? 'N/A' }}</span>
+      </ion-item>
+      <ion-item>
+        <strong>Región:</strong>
+        <span>{{ country?.region }}</span>
+      </ion-item>
+      <ion-item>
+        <strong>Subregión:</strong>
+        <span>{{ country?.subregion }}</span>
+      </ion-item>
+      <ion-item>
+        <strong>Población:</strong>
+        <span>{{ country?.population | number }}</span>
+      </ion-item>
+      <ion-item>
+        <strong>Escudo:</strong>
+        <ion-img [src]="country?.coatOfArms?.png" alt="Escudo de {{ country?.name?.common }}"
+          style="width: 20%; height: auto; margin-bottom: 1rem;" [hidden]="!country?.coatOfArms?.png">
+        </ion-img>
+      </ion-item>
+      <ion-item>
+        <strong>Banderas:</strong>
+        <ion-img [src]="country?.flags?.png" alt="Bandera de {{ country?.name?.common }}"
+          style="width: 20%; height: auto; margin-bottom: 1rem;" [hidden]="!country?.coatOfArms?.png">
+        </ion-img>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
