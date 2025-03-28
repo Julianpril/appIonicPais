@@ -1,7 +1,8 @@
+// src/app/services/logs.service.ts
 import { Injectable } from '@angular/core';
 
 export interface LogEntry {
-  countryName: string;
+  country: string;
   timestamp: Date;
 }
 
@@ -9,22 +10,34 @@ export interface LogEntry {
   providedIn: 'root',
 })
 export class LogsService {
-  private logs: LogEntry[] = [];
+  private storageKey = 'countryLogs';
 
-  addLog(countryName: string): void {
-    const entry: LogEntry = {
-      countryName,
+  addLog(country: string): void {
+    const newLog: LogEntry = {
+      country,
       timestamp: new Date(),
     };
-    this.logs.push(entry);
-    console.log(`Log registrado: ${entry.countryName} a las ${entry.timestamp.toLocaleTimeString()}`);
+    const logs = this.getLogs();
+    logs.push(newLog);
+    localStorage.setItem(this.storageKey, JSON.stringify(logs));
+    console.log(`Log registrado: ${country} a las ${newLog.timestamp.toLocaleTimeString()}`);
   }
 
   getLogs(): LogEntry[] {
-    return this.logs;
+    const logsString = localStorage.getItem(this.storageKey);
+    if (logsString) {
+      // Parseamos y convertimos el timestamp a objeto Date
+      const parsed = JSON.parse(logsString) as LogEntry[];
+      return parsed.map(log => ({
+        ...log,
+        timestamp: new Date(log.timestamp),
+      }));
+    }
+    return [];
   }
 
   clearLogs(): void {
-    this.logs = [];
+    localStorage.removeItem(this.storageKey);
+    console.log('Logs borrados');
   }
 }

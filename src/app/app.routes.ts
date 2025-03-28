@@ -1,3 +1,4 @@
+//src/app/app.routes.ts
 import { Routes } from '@angular/router';
 import { HomePage } from './home/home.page';
 import { DetallePage } from './detail/detail/detail.page';

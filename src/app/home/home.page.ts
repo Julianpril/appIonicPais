@@ -1,3 +1,4 @@
+// src/app/home/home.page.ts
 import { Component, OnInit, signal, computed } from '@angular/core';
 import {
   IonHeader,
@@ -42,6 +43,7 @@ import { HttpClientModule } from '@angular/common/http';
 })
 export class HomePage implements OnInit {
   countries = signal<Country[]>([]);
+  
   searchQuery = signal('');
 
   filteredCountries = computed(() => {
@@ -76,9 +78,6 @@ export class HomePage implements OnInit {
       .toLowerCase()
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '');
-  }
-
-  onSearchChange(): void {
   }
 
   restore(): void {

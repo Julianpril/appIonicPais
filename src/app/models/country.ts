@@ -1,3 +1,4 @@
+//src/app/models/country.ts
 export interface Country {
     cca2: string;
     name: {

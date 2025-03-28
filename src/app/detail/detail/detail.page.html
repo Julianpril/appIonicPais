@@ -1,5 +1,8 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
     <ion-title>{{ country?.name?.common }}</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -28,18 +31,34 @@
         <strong>Población:</strong>
         <span>{{ country?.population | number }}</span>
       </ion-item>
+      
       <ion-item>
         <strong>Escudo:</strong>
-        <ion-img [src]="country?.coatOfArms?.png" alt="Escudo de {{ country?.name?.common }}"
-          style="width: 20%; height: auto; margin-bottom: 1rem;" [hidden]="!country?.coatOfArms?.png">
-        </ion-img>
+        <ng-container *ngIf="country?.coatOfArms?.png; else noCoat">
+          <ion-img 
+            [src]="country?.coatOfArms?.png" 
+            alt="Escudo de {{ country?.name?.common }}"
+            style="width: 20%; height: auto; margin-bottom: 1rem;">
+          </ion-img>
+        </ng-container>
+        <ng-template #noCoat>
+          <span>No se encontró información</span>
+        </ng-template>
       </ion-item>
       <ion-item>
-        <strong>Banderas:</strong>
-        <ion-img [src]="country?.flags?.png" alt="Bandera de {{ country?.name?.common }}"
-          style="width: 20%; height: auto; margin-bottom: 1rem;" [hidden]="!country?.coatOfArms?.png">
-        </ion-img>
+        <strong>Bandera:</strong>
+        <ng-container *ngIf="country?.flags?.png; else noFlag">
+          <ion-img 
+            [src]="country?.flags?.png" 
+            alt="Bandera de {{ country?.name?.common }}"
+            style="width: 20%; height: auto; margin-bottom: 1rem;">
+          </ion-img>
+        </ng-container>
+        <ng-template #noFlag>
+          <span>No se encontró información</span>
+        </ng-template>
       </ion-item>
+      
     </ion-card-content>
   </ion-card>
 </ion-content>
